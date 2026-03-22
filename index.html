@@ -1,13 +1,91 @@
 <!DOCTYPE html>
-<html>
-   <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <base target="_top">
-   </head>
-   <body style="margin:0;">
-      <iframe 
-         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
-         src="https://script.google.com/macros/s/AKfycbwghosm2iUXjfOaWrRzi2z5K5IfJ1thmTeJHvsFmMyPwNVDKvYzWqmWKmRrPjfU9pmd/exec">
-      </iframe>
-   </body>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>My Web App</title>
+    <link rel="icon" href="icon.png" type="image/png">
+
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Loading Screen */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            font-family: sans-serif;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Spinner */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #ddd;
+            border-top: 5px solid #333;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
+    <base target="_top">
+</head>
+
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading">
+        <div class="spinner"></div>
+        <div>กำลังโหลด...</div>
+    </div>
+
+    <!-- App -->
+    <iframe 
+        id="appFrame"
+        src="https://script.google.com/macros/s/AKfycbwghosm2iUXjfOaWrRzi2z5K5IfJ1thmTeJHvsFmMyPwNVDKvYzWqmWKmRrPjfU9pmd/exec"
+        allowfullscreen>
+    </iframe>
+
+    <script>
+        const iframe = document.getElementById("appFrame");
+        const loading = document.getElementById("loading");
+
+        iframe.onload = function () {
+            loading.style.opacity = "0";
+            setTimeout(() => {
+                loading.style.display = "none";
+            }, 500);
+        };
+    </script>
+
+</body>
 </html>
